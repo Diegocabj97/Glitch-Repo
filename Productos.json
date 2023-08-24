@@ -1,0 +1,523 @@
+[
+  {
+    "id": 1,
+    "code": "PV001PC",
+    "title": "GPU Nvidia",
+    "price": 40000,
+    "thumbnail": "src",
+    "stock": 10,
+    "category": "Placas de Video",
+    "description": "Potencia gráfica increíble"
+  },
+  {
+    "id": 2,
+    "code": "AL001PC",
+    "title": "SSD Samsung",
+    "price": 15000,
+    "thumbnail": "src",
+    "stock": 50,
+    "category": "Almacenamiento",
+    "description": "Almacenamiento rápido y confiable"
+  },
+  {
+    "id": 3,
+    "code": "FP001PC",
+    "title": "Fuente de Poder EVGA 850W",
+    "price": 17000,
+    "thumbnail": "src",
+    "stock": 20,
+    "category": "Fuentes de Poder",
+    "description": "La mejor Fuente del mercado"
+  },
+  {
+    "id": 4,
+    "code": "MB001PC",
+    "title": "Placa Base ASUS ROG Strix",
+    "price": 25000,
+    "thumbnail": "src",
+    "stock": 15,
+    "category": "Placas Base",
+    "description": "Diseñada para gamers y entusiastas"
+  },
+  {
+    "id": 5,
+    "code": "CPU001PC",
+    "title": "Procesador Intel Core i9-12900K",
+    "price": 35000,
+    "thumbnail": "src",
+    "stock": 8,
+    "category": "Procesadores",
+    "description": "Rendimiento excepcional para tareas pesadas"
+  },
+  {
+    "id": 6,
+    "code": "RAM001PC",
+    "title": "Kit de Memoria Corsair Vengeance RGB",
+    "price": 8000,
+    "thumbnail": "src",
+    "stock": 30,
+    "category": "Memorias RAM",
+    "description": "Aumenta la velocidad y capacidad de tu sistema"
+  },
+  {
+    "id": 7,
+    "code": "COOL001PC",
+    "title": "Refrigeración Líquida NZXT Kraken X73",
+    "price": 12000,
+    "thumbnail": "src",
+    "stock": 12,
+    "category": "Refrigeración",
+    "description": "Mantén tu CPU fría incluso en cargas intensas"
+  },
+  {
+    "id": 8,
+    "code": "CASE001PC",
+    "title": "Gabinete Lian Li O11 Dynamic",
+    "price": 15000,
+    "thumbnail": "src",
+    "stock": 18,
+    "category": "Gabinetes",
+    "description": "Diseño elegante y excelente flujo de aire"
+  },
+  {
+    "id": 9,
+    "code": "HDD001PC",
+    "title": "Disco Duro Seagate Barracuda 4TB",
+    "price": 6000,
+    "thumbnail": "src",
+    "stock": 25,
+    "category": "Almacenamiento",
+    "description": "Amplio espacio para tus archivos y juegos"
+  },
+  {
+    "id": 10,
+    "code": "MON001PC",
+    "title": "Monitor Gaming Acer Predator X27",
+    "price": 40000,
+    "thumbnail": "src",
+    "stock": 5,
+    "category": "Monitores",
+    "description": "Imágenes nítidas y alta frecuencia de actualización"
+  },
+  {
+    "id": 11,
+    "code": "KB001PC",
+    "title": "Teclado Mecánico Corsair K95 RGB",
+    "price": 12000,
+    "thumbnail": "src",
+    "stock": 15,
+    "category": "Periféricos",
+    "description": "Retroiluminación personalizable y respuesta táctil precisa"
+  },
+  {
+    "id": 12,
+    "code": "MOUSE001PC",
+    "title": "Mouse Logitech G Pro X Superlight",
+    "price": 8000,
+    "thumbnail": "src",
+    "stock": 20,
+    "category": "Periféricos",
+    "description": "Diseño ligero y sensor de alta precisión"
+  },
+  {
+    "id": 13,
+    "code": "HEADSET001PC",
+    "title": "Audífonos HyperX Cloud Alpha",
+    "price": 9000,
+    "thumbnail": "src",
+    "stock": 25,
+    "category": "Periféricos",
+    "description": "Sonido envolvente y comodidad duradera"
+  },
+  {
+    "id": 14,
+    "code": "NET001PC",
+    "title": "Adaptador Wi-Fi TP-Link Archer T9E",
+    "price": 1500,
+    "thumbnail": "src",
+    "stock": 30,
+    "category": "Redes",
+    "description": "Conexiones rápidas y estables para juegos en línea"
+  },
+  {
+    "id": 15,
+    "code": "UPS001PC",
+    "title": "UPS APC Back-UPS Pro 1500",
+    "price": 10000,
+    "thumbnail": "src",
+    "stock": 10,
+    "category": "Accesorios",
+    "description": "Protección de energía para tu equipo"
+  },
+  {
+    "id": 16,
+    "code": "FAN001PC",
+    "title": "Ventiladores RGB Cooler Master",
+    "price": 2000,
+    "thumbnail": "src",
+    "stock": 40,
+    "category": "Refrigeración",
+    "description": "Mejora la circulación de aire en tu gabinete"
+  },
+  {
+    "id": 17,
+    "code": "CABLE001PC",
+    "title": "Cable de Extensión PCI-E",
+    "price": 500,
+    "thumbnail": "src",
+    "stock": 50,
+    "category": "Accesorios",
+    "description": "Amplía la longitud de tus cables PCI-E"
+  },
+  {
+    "id": 18,
+    "code": "CASEFAN001PC",
+    "title": "Pack de Ventiladores Noctua",
+    "price": 3000,
+    "thumbnail": "src",
+    "stock": 15,
+    "category": "Refrigeración",
+    "description": "Silencio y eficiencia en la refrigeración de tu sistema"
+  },
+  {
+    "id": 19,
+    "code": "KB002PC",
+    "title": "Teclado Inalámbrico Logitech K800",
+    "price": 8000,
+    "thumbnail": "src",
+    "stock": 10,
+    "category": "Periféricos",
+    "description": "Comodidad y conectividad inalámbrica"
+  },
+  {
+    "id": 20,
+    "code": "MOUSE002PC",
+    "title": "Mouse Razer DeathAdder Elite",
+    "price": 7000,
+    "thumbnail": "src",
+    "stock": 18,
+    "category": "Periféricos",
+    "description": "Precisión y ergonomía en tus manos"
+  },
+  {
+    "id": 21,
+    "code": "HEADSET002PC",
+    "title": "Auriculares Sony WH-1000XM4",
+    "price": 25000,
+    "thumbnail": "src",
+    "stock": 12,
+    "category": "Periféricos",
+    "description": "Cancelación de ruido líder en la industria"
+  },
+  {
+    "id": 22,
+    "code": "NET002PC",
+    "title": "Router ASUS RT-AX86U",
+    "price": 12000,
+    "thumbnail": "src",
+    "stock": 8,
+    "category": "Redes",
+    "description": "Wi-Fi 6 de alta velocidad y cobertura"
+  },
+  {
+    "id": 23,
+    "code": "UPS002PC",
+    "title": "UPS CyberPower CP1500PFCLCD",
+    "price": 11000,
+    "thumbnail": "src",
+    "stock": 5,
+    "category": "Accesorios",
+    "description": "Respaldo de energía confiable para tu equipo"
+  },
+  {
+    "id": 24,
+    "code": "PV002PC",
+    "title": "GPU AMD Radeon RX 6900 XT",
+    "price": 45000,
+    "thumbnail": "src",
+    "stock": 7,
+    "category": "Placas de Video",
+    "description": "Rendimiento gráfico de última generación"
+  },
+  {
+    "id": 25,
+    "code": "AL002PC",
+    "title": "SSD WD Black SN850",
+    "price": 17000,
+    "thumbnail": "src",
+    "stock": 25,
+    "category": "Almacenamiento",
+    "description": "Velocidades de lectura y escritura asombrosas"
+  },
+  {
+    "id": 26,
+    "code": "FP002PC",
+    "title": "Fuente de Poder Corsair RM850x",
+    "price": 14000,
+    "thumbnail": "src",
+    "stock": 20,
+    "category": "Fuentes de Poder",
+    "description": "Eficiencia y rendimiento en un solo paquete"
+  },
+  {
+    "id": 27,
+    "code": "MB002PC",
+    "title": "Placa Base MSI MAG B550 Tomahawk",
+    "price": 18000,
+    "thumbnail": "src",
+    "stock": 15,
+    "category": "Placas Base",
+    "description": "Construye tu plataforma de juegos sólida"
+  },
+  {
+    "id": 28,
+    "code": "CPU002PC",
+    "title": "Procesador AMD Ryzen 9 5900X",
+    "price": 32000,
+    "thumbnail": "src",
+    "stock": 10,
+    "category": "Procesadores",
+    "description": "Multitarea y rendimiento de alta gama"
+  },
+  {
+    "id": 29,
+    "code": "RAM002PC",
+    "title": "Kit de Memoria G.SKILL Trident Z RGB",
+    "price": 8500,
+    "thumbnail": "src",
+    "stock": 35,
+    "category": "Memorias RAM",
+    "description": "Estilo y velocidad combinados en una RAM"
+  },
+  {
+    "id": 30,
+    "code": "COOL002PC",
+    "title": "Ventilador Noctua NH-D15",
+    "price": 8000,
+    "thumbnail": "src",
+    "stock": 10,
+    "category": "Refrigeración",
+    "description": "Enfriamiento silencioso y eficiente"
+  },
+  {
+    "id": 31,
+    "code": "CASE002PC",
+    "title": "Gabinete NZXT H510",
+    "price": 9000,
+    "thumbnail": "src",
+    "stock": 22,
+    "category": "Gabinetes",
+    "description": "Diseño minimalista y construcción de calidad"
+  },
+  {
+    "id": 32,
+    "code": "HDD002PC",
+    "title": "Disco Duro Toshiba X300",
+    "price": 4000,
+    "thumbnail": "src",
+    "stock": 30,
+    "category": "Almacenamiento",
+    "description": "Alto rendimiento para almacenar tus datos"
+  },
+  {
+    "id": 33,
+    "code": "MON002PC",
+    "title": "Monitor LG UltraGear 27GL83A-B",
+    "price": 30000,
+    "thumbnail": "src",
+    "stock": 8,
+    "category": "Monitores",
+    "description": "Experiencia de juego inmersiva"
+  },
+  {
+    "id": 34,
+    "code": "KB003PC",
+    "title": "Teclado Inalámbrico Microsoft Surface",
+    "price": 6000,
+    "thumbnail": "src",
+    "stock": 15,
+    "category": "Periféricos",
+    "description": "Elegancia y comodidad en un teclado"
+  },
+  {
+    "id": 35,
+    "code": "MOUSE003PC",
+    "title": "Mouse SteelSeries Rival 600",
+    "price": 7500,
+    "thumbnail": "src",
+    "stock": 18,
+    "category": "Periféricos",
+    "description": "Precisión y personalización en tus manos"
+  },
+  {
+    "id": 36,
+    "code": "HEADSET003PC",
+    "title": "Auriculares Corsair HS70",
+    "price": 6000,
+    "thumbnail": "src",
+    "stock": 20,
+    "category": "Periféricos",
+    "description": "Audio inalámbrico de alta calidad"
+  },
+  {
+    "id": 37,
+    "code": "NET003PC",
+    "title": "Switch Ethernet NETGEAR GS308",
+    "price": 1500,
+    "thumbnail": "src",
+    "stock": 40,
+    "category": "Redes",
+    "description": "Conectividad de red confiable y rápida"
+  },
+  {
+    "id": 38,
+    "code": "UPS003PC",
+    "title": "UPS Tripp Lite SMART1500LCDT",
+    "price": 12000,
+    "thumbnail": "src",
+    "stock": 10,
+    "category": "Accesorios",
+    "description": "Protección y respaldo de energía inteligente"
+  },
+  {
+    "id": 39,
+    "code": "PV003PC",
+    "title": "GPU AMD Radeon RX 6800",
+    "price": 38000,
+    "thumbnail": "src",
+    "stock": 9,
+    "category": "Placas de Video",
+    "description": "Gráficos de alta calidad para juegos"
+  },
+  {
+    "id": 40,
+    "code": "AL003PC",
+    "title": "SSD Crucial MX500",
+    "price": 8000,
+    "thumbnail": "src",
+    "stock": 25,
+    "category": "Almacenamiento",
+    "description": "Almacenamiento confiable y duradero"
+  },
+  {
+    "id": 41,
+    "code": "FP003PC",
+    "title": "Fuente de Poder Seasonic Focus GX-750",
+    "price": 13000,
+    "thumbnail": "src",
+    "stock": 15,
+    "category": "Fuentes de Poder",
+    "description": "Eficiencia y rendimiento para tu PC"
+  },
+  {
+    "id": 42,
+    "code": "MB003PC",
+    "title": "Placa Base Gigabyte Aorus Pro",
+    "price": 20000,
+    "thumbnail": "src",
+    "stock": 12,
+    "category": "Placas Base",
+    "description": "Potencia y características avanzadas"
+  },
+  {
+    "id": 43,
+    "code": "CPU003PC",
+    "title": "Procesador AMD Ryzen 7 5800X",
+    "price": 25000,
+    "thumbnail": "src",
+    "stock": 8,
+    "category": "Procesadores",
+    "description": "Rendimiento de alta gama"
+  },
+  {
+    "id": 44,
+    "code": "RAM003PC",
+    "title": "Kit de Memoria HyperX Fury RGB",
+    "price": 6000,
+    "thumbnail": "src",
+    "stock": 30,
+    "category": "Memorias RAM",
+    "description": "Estilo y rendimiento en una RAM"
+  },
+  {
+    "id": 45,
+    "code": "COOL003PC",
+    "title": "Ventilador Cooler Master Hyper 212",
+    "price": 3000,
+    "thumbnail": "src",
+    "stock": 20,
+    "category": "Refrigeración",
+    "description": "Enfriamiento efectivo a un precio asequible"
+  },
+  {
+    "id": 46,
+    "code": "CASE003PC",
+    "title": "Gabinete Fractal Design Meshify C",
+    "price": 10000,
+    "thumbnail": "src",
+    "stock": 18,
+    "category": "Gabinetes",
+    "description": "Diseño moderno y flujo de aire óptimo"
+  },
+  {
+    "id": 47,
+    "code": "HDD003PC",
+    "title": "Disco Duro Western Digital Blue 2TB",
+    "price": 3500,
+    "thumbnail": "src",
+    "stock": 30,
+    "category": "Almacenamiento",
+    "description": "Amplio espacio para tus datos"
+  },
+  {
+    "id": 48,
+    "code": "MON003PC",
+    "title": "Monitor ASUS TUF Gaming VG27AQ",
+    "price": 25000,
+    "thumbnail": "src",
+    "stock": 5,
+    "category": "Monitores",
+    "description": "Calidad de imagen y rendimiento para juegos"
+  },
+  {
+    "id": 49,
+    "code": "KB004PC",
+    "title": "Teclado Ergonómico Microsoft Sculpt",
+    "price": 7000,
+    "thumbnail": "src",
+    "stock": 12,
+    "category": "Periféricos",
+    "description": "Comodidad y diseño ergonómico"
+  },
+  {
+    "id": 50,
+    "code": "MOUSE006PC",
+    "title": "Mouse Logitech MX Master 3",
+    "price": 9000,
+    "description": "Control avanzado y versatilidad",
+    "stock": 15,
+    "category": "Periféricos",
+    "thumbnail": ""
+  },
+  {
+    "id": 51,
+    "code": "MOUSE007PC",
+    "title": "Mouse Razer Deathadder V2",
+    "price": 45000,
+    "description": "Sensor de alta gama, perfecto para Shooters",
+    "stock": 12,
+    "category": "Periféricos",
+    "thumbnail": ""
+  },
+  {
+    "id": 52,
+    "code": "MOUSE008PC",
+    "title": "Mouse Logitech G PRO",
+    "price": 42000,
+    "description": "Sensor de alta gama, perfecto para trabajo y videojuegos",
+    "stock": 12,
+    "quantity":1,
+    "category": "Periféricos",
+    "thumbnail": ""
+  }
+]
