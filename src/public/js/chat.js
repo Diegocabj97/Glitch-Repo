@@ -1,22 +1,19 @@
-/* Swal.fire("Bienvenidos a main.handlebars!!");
- */
-
+/* Swal.fire("Bienvenidos a main.handlebars!!"); */
 const socket = io();
-
-/* socket.emit("MensajeConexion", { user: "Diego", role: "Admin" });
+socket.emit("MensajeConexion", { user: "Diego", role: "Admin" });
 
 socket.on("credencialesConexion", (info) => {
   console.log(info);
 });
- */
+
 
 const botonChat = document.getElementById("botonChat");
 const parrafosMensajes = document.getElementById("parrafosMensajes");
 const valInput = document.getElementById("chatbox");
 
 let user;
-
-Swal.fire({
+ 
+ Swal.fire({
   title: "Identificacion de usuario",
   text: "Por favor ingrese su usuario",
   input: "text",
@@ -28,7 +25,7 @@ Swal.fire({
   user = resultado.value;
   console.log(user);
 });
-
+  
 botonChat.addEventListener("click", () => {
   let fechaActual = new Date().toLocaleString();
 
@@ -48,3 +45,4 @@ socket.on("mensajes", (arraymensajes) => {
     parrafosMensajes.innerHTML += `<p>${mensaje.fecha}: ${mensaje.user} escribió ${mensaje.mensaje}`;
   });
 });
+

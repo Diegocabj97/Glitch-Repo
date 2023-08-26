@@ -1,0 +1,35 @@
+<h1>Crear nuevo producto</h1>
+
+<form id="idForm">
+
+  <label for="title">title</label>
+  <input type="text" name="title" required />
+  <label for="description">description</label>
+  <input type="text" name="description" required />
+  <label for="category">category</label>
+  <input type="text" name="category" required />
+  <label for="price">price</label>
+  <input type="number" name="price" required />
+  <label for="stock">stock</label>
+  <input type="number" name="stock" required />
+  <label for="code">code</label>
+  <input type="text" name="code" required />
+  <button type="submit">Enviar</button>
+</form>
+
+<h2>Eliminemos un producto</h2>
+
+<form id="idFormDelete">
+
+  <h4>Ingrese el codigo del producto</h4>
+  <label for="code">code</label>
+  <input type="text" name="code" required />
+  <button type="submit">Enviar</button>
+
+</form>
+
+<button id="showProds">Mostrar Productos</button>
+
+<ul id="listaProds">
+
+</ul>
