@@ -14,7 +14,7 @@ const app = express();
 const PORT = 8080;
 mongoose
   .connect(
-    "mongodb+srv://diegojadrian97:pwDatabase@cluster0.fnd7hyr.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://diegojadrian97:<password>@cluster0.fnd7hyr.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => console.log("BDD conectada"))
   .catch(() => console.log("Error al conectarse a la BDD"));
@@ -77,6 +77,7 @@ io.on("connection", (socket) => {
 //Routes
 app.use("/api/products", ProdsRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/users", userRouter);
 app.use("/static", express.static(path.join(__dirname, "/public")));
 app.use("/chat", express.static(path.join(__dirname, "/public")));
 app.use("/home", express.static(path.join(__dirname, "/public")));
