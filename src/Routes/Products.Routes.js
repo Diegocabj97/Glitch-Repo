@@ -1,80 +1,97 @@
 import { Router } from "express";
-import { ProductManager } from "../ProductManager.js";
 import { Product } from "../ProductManager.js";
+import { productModel } from "../models/products.models.js";
 
 const prodsRouter = Router();
-const productManager = new ProductManager();
 
 prodsRouter.get("/", async (req, res) => {
-  const { limit } = req.query;
-  const prods = await productManager.getProducts();
-  const products = prods.slice(0, limit);
-  res.status(200).send(products);
+  const { limit } = req.body;
+  try {
+    const prods = await productModel.find().limit(limit);
+    res.status(200).send({ respuesta: "Ok", mensaje: prods });
+  } catch (error) {
+    res
+      .status(404)
+      .send({ respuesta: "Error al consultar productos", mensaje: error });
+  }
 });
 
 prodsRouter.get("/:pid", async (req, res) => {
   const { pid } = req.params;
-  const prod = await productManager.getProductById(parseInt(pid));
-  if (prod) {
-    res.status(200).send(prod);
-  } else {
-    res.status(404).send("Producto no encontrado");
+  try {
+    if (prod) {
+      res.status(200).send({ respuesta: "Ok", mensaje: prod });
+    } else {
+      res.status(404).send({ respuesta: "Not Found", mensaje: "Not Found" });
+    }
+  } catch {
+    res.status(404).send({ respuesta: "Not Found", mensaje: "Not Found" });
   }
+  const prod = await productModel.findById(pid);
 });
 
 prodsRouter.post("/", async (req, res) => {
-  const { title, description, code, price, stock, category, thumbnails } =
-    req.body;
-
-  if (!title || !description || !code || !price || !stock || !category) {
-    return res.status(400).send("Faltan campos obligatorios");
+  const { title, description, code, price, stock, category } = req.body;
+  try {
+    const prod = await productModel.create({
+      title,
+      description,
+      code,
+      price,
+      stock,
+      category,
+    });
+    res.status(200).send({ respuesta: "Ok", mensaje: prod });
+  } catch (error) {
+    res
+      .status(404)
+      .send({ respuesta: "Error al agregar producto", mensaje: error });
   }
-
-  const newProduct = new Product(
-    code,
-    title,
-    price,
-    description,
-    stock,
-    category,
-    thumbnails || ""
-  );
-
-  await productManager.addProduct(newProduct);
-
-  res.status(201).send("Producto agregado correctamente");
 });
 
 prodsRouter.put("/:pid", async (req, res) => {
   const { pid } = req.params;
-  const { title, description, code, price, stock, category, thumbnails } =
-    req.body;
-
-  if (!title || !description || !code || !price || !stock || !category) {
-    return res.status(400).send("Faltan campos obligatorios");
-  }
-
-  const updatedProduct = new Product(
-    code,
+  const {
     title,
-    price,
     description,
+    code,
+    price,
     stock,
     category,
-    thumbnails || ""
-  );
-
-  await productManager.updateProduct(parseInt(pid), updatedProduct);
-
-  res.status(200).send("Producto actualizado correctamente");
+    status,
+    thumbnails,
+  } = req.body;
+  try {
+    const prod = await productModel.findByIdAndUpdate(pid, {
+      title,
+      description,
+      code,
+      price,
+      stock,
+      category,
+      status,
+      thumbnails,
+    });
+    res
+      .status(200)
+      .send({ respuesta: "Producto actualizado correctamente", mensaje: prod });
+  } catch (error) {
+    res
+      .status(404)
+      .send({ respuesta: "Error al actualizar producto", mensaje: error });
+  }
 });
 
 prodsRouter.delete("/:pid", async (req, res) => {
   const { pid } = req.params;
-
-  await productManager.deleteProduct(parseInt(pid));
-
-  res.status(200).send("Producto eliminado correctamente");
+  try {
+    await productModel.findByIdAndDelete(pid);
+    res.status(200).send("Producto eliminado correctamente");
+  } catch (error) {
+    res
+      .status(404)
+      .send({ respuesta: "Error al eliminar producto", mensaje: error });
+  }
 });
 
 export default prodsRouter;

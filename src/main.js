@@ -1,14 +1,15 @@
-import express from "express";
-import path from "path";
+//Routers
 import ProdsRouter from "./Routes/Products.Routes.js";
 import cartRouter from "./Routes/Cart.Routes.js";
 import userRouter from "./Routes/users.routes.js";
+
+//Express y socket
+import express from "express";
+import path from "path";
 import { __dirname } from "./path.js";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
-import { ProductManager } from "./ProductManager.js";
 import mongoose from "mongoose";
-const PM = new ProductManager();
 const app = express();
 const PORT = 8080;
 mongoose
@@ -34,7 +35,6 @@ app.set("views", path.resolve(__dirname, "./Views")); //Resolver rutas absolutas
 const io = new Server(serverExpress);
 
 const mensajes = [];
-const productos = await PM.getProducts();
 io.on("connection", (socket) => {
   console.log("servidor Socket.io conectado");
 

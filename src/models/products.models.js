@@ -1,17 +1,38 @@
 import { Schema, model } from "mongoose";
 
-const userSchema = new Schema({
+const productSchema = new Schema({
   code: {
     type: String,
     unique: true,
+    required: true,
   },
-  title: String,
-  price: Number,
-  thumbnail: String,
-  stock: Number,
-  category: String,
-  description: String,
+  title: {
+    type: String,
+    required: true,
+  },
+
+  price: {
+    type: Number,
+    required: true,
+  },
+  thumbnail: [],
+  stock: {
+    type: Number,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: Boolean,
+    default: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
 });
 
 //Parametro 1: Nombre de la coleccion - Parametro 2:Schema
-export const userModel = model("products", userSchema);
+export const productModel = model("products", productSchema);
