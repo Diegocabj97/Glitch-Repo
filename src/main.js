@@ -2,14 +2,22 @@ import express from "express";
 import path from "path";
 import ProdsRouter from "./Routes/Products.Routes.js";
 import cartRouter from "./Routes/Cart.Routes.js";
+import userRouter from "./Routes/users.routes.js";
 import { __dirname } from "./path.js";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import { ProductManager } from "./ProductManager.js";
+import mongoose from "mongoose";
 const PM = new ProductManager();
 const app = express();
-
 const PORT = 8080;
+mongoose
+  .connect(
+    "mongodb+srv://diegojadrian97:pwDatabase@cluster0.fnd7hyr.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then(() => console.log("BDD conectada"))
+  .catch(() => console.log("Error al conectarse a la BDD"));
+
 const serverExpress = app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
@@ -17,6 +25,7 @@ const serverExpress = app.listen(PORT, () => {
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api/users", userRouter);
 app.engine("handlebars", engine()); // defino que motor de plantillas voy a utilizar y su configuracion
 app.set("view engine", "handlebars"); // Settign de mi app de handlebars
 app.set("views", path.resolve(__dirname, "./Views")); //Resolver rutas absolutas a traves de rutas relativas
