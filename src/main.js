@@ -11,15 +11,30 @@ import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
 import { MsgModel } from "./models/messages.models.js";
+import { userModel } from "./models/users.models.js";
+import { CartModel } from "./models/cart.models.js";
+import { productModel } from "./models/products.models.js";
 const app = express();
 const PORT = 8080;
 mongoose
   .connect(
     "mongodb+srv://diegojadrian97:pwDatabase@cluster0.fnd7hyr.mongodb.net/?retryWrites=true&w=majority"
   )
-  .then(() => console.log("BDD conectada"))
-  .catch(() => console.log("Error al conectarse a la BDD"));
+  .then(async () => {
+    console.log("BDD conectada");
+   
+    /*   const resCartProds = await CartModel.findOne({
+      _id: "6506041a8b0752b8b129f0bd",
+    });
+    console.log(JSON.stringify(resCartProds)); */
 
+    /* const resUsers = await userModel.paginate(
+      { limit: 20 },
+      { sort: { edad: "asc" } }
+    );
+    console.log(resUsers); */
+  })
+  .catch(() => console.log("Error al conectarse a la BDD"));
 const serverExpress = app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
