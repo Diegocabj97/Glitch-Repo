@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MsgModel } from "../models/messages.models";
+import { MsgModel } from "../models/messages.models.js";
 
 const msgRouter = Router();
 
@@ -7,21 +7,26 @@ msgRouter.get("/", async (req, res) => {
   try {
     const messages = await MsgModel.find();
     res.status(200).send(messages);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res
-      .status(404)
-      .send({ respuesta: "Mensajes no encontrados", mensaje: "not found" });
+      .status(500)
+      .send({ respuesta: "Error al obtener mensajes", error: error.message });
   }
 });
 
 msgRouter.post("/", async (req, res) => {
   try {
-    const messages = await MsgModel.create();
-    res.status(200).send(messages);
-  } catch {
+       const newMessage = new MsgModel.create();
+
+    await newMessage.save();
+
+    res.status(201).send({ respuesta: "Mensaje creado exitosamente" });
+  } catch (error) {
+    console.error(error);
     res
-      .status(404)
-      .send({ respuesta: "Mensajes no encontrados", mensaje: "not found" });
+      .status(500)
+      .send({ respuesta: "Error al crear mensaje", error: error.message });
   }
 });
 
