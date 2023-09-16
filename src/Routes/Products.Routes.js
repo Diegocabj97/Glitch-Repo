@@ -54,7 +54,8 @@ prodsRouter.get("/:pid", async (req, res) => {
 });
 
 prodsRouter.post("/", async (req, res) => {
-  const { title, description, code, price, stock, category } = req.body;
+  const { title, description, code, price, stock, category, quantity } =
+    req.body;
   try {
     const prod = await productModel.create(
       title,
@@ -62,7 +63,8 @@ prodsRouter.post("/", async (req, res) => {
       code,
       price,
       stock,
-      category
+      category,
+      quantity
     );
     res.status(200).send({ respuesta: "Ok", mensaje: prod });
   } catch (error) {

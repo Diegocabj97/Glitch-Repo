@@ -14,15 +14,14 @@ import { MsgModel } from "./models/messages.models.js";
 import { userModel } from "./models/users.models.js";
 import { CartModel } from "./models/cart.models.js";
 import { productModel } from "./models/products.models.js";
+import "dotenv/config";
 const app = express();
 const PORT = 8080;
 mongoose
-  .connect(
-    "mongodb+srv://diegojadrian97:pwDatabase@cluster0.fnd7hyr.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URL)
   .then(async () => {
     console.log("BDD conectada");
-   
+
     /*   const resCartProds = await CartModel.findOne({
       _id: "6506041a8b0752b8b129f0bd",
     });
