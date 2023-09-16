@@ -17,25 +17,26 @@ Swal.fire({
 });
 
 const botonChat = document.getElementById("botonChat");
-const parrafosMensajes = document.getElementById("parrafosMensajes");
 const valInput = document.getElementById("chatbox");
 
 botonChat.addEventListener("click", () => {
-  let fechaActual = new Date().toLocaleString();
+  const mensaje = valInput.value.trim();
 
-  if (valInput.value.trim().length > 0) {
+  if (mensaje.length > 0) {
     socket.emit("mensaje", {
-      fecha: fechaActual,
       email: email,
-      message: valInput.value, // Asegúrate de que valInput.value contenga el mensaje
+      message: mensaje,
     });
     valInput.value = "";
   }
 });
 
-socket.on("mensajes", (arraymensajes) => {
+socket.on("mensajes", (mensajes) => {
+  const parrafosMensajes = document.getElementById("parrafosMensajes");
   parrafosMensajes.innerHTML = "";
-  arraymensajes.forEach((mensaje) => {
-    parrafosMensajes.innerHTML += `<p>${mensaje.fecha}: ${mensaje.email} escribió ${mensaje.message}`;
+
+  mensajes.forEach((mensaje) => {
+    const fecha = new Date(mensaje.postTime).toLocaleString();
+    parrafosMensajes.innerHTML += `<p>${fecha}: ${mensaje.email} escribió ${mensaje.message}</p>`;
   });
 });

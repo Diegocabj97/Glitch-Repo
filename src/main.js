@@ -15,7 +15,7 @@ const app = express();
 const PORT = 8080;
 mongoose
   .connect(
-    "mongodb+srv://diegojadrian97:<password>@cluster0.fnd7hyr.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://diegojadrian97:pwDatabase@cluster0.fnd7hyr.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => console.log("BDD conectada"))
   .catch(() => console.log("Error al conectarse a la BDD"));
@@ -33,9 +33,6 @@ app.set("views", path.resolve(__dirname, "./Views")); //Resolver rutas absolutas
 
 //Server socket io
 const io = new Server(serverExpress);
-
-const mensajes = [];
-
 io.on("connection", (socket) => {
   console.log("servidor Socket.io conectado");
 
@@ -49,11 +46,10 @@ io.on("connection", (socket) => {
 
   socket.on("mensaje", async (infoMensaje) => {
     try {
-      // Guarda el mensaje en la base de datos MongoDB
+      infoMensaje.postTime = new Date();
       const newMessage = await MsgModel.create(infoMensaje);
-
-      // Emite el mensaje a todos los clientes conectados
-      io.emit("mensajes", [newMessage, ...mensajes]); // También envía el mensaje a los clientes existentes
+      const allMsgs = await MsgModel.find();
+      io.emit("mensajes", [newMessage, ...allMsgs]);
     } catch (error) {
       console.error(error);
     }

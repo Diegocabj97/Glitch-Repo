@@ -16,8 +16,8 @@ const cartSchema = new Schema({
         },
       },
     ],
-    default: [],
   },
+  default: [],
 });
 
 //Parametro 1: Nombre de la coleccion - Parametro 2:Schema
