@@ -13,10 +13,10 @@ userRouter.get("/", async (req, res) => {
       .send({ respuesta: "Error al consultar usuarios", mensaje: error });
   }
 });
-userRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
+userRouter.get("/:uid", async (req, res) => {
+  const { uid } = req.params;
   try {
-    const user = await userModel.findById(id);
+    const user = await userModel.findById(uid);
     if (user) {
       res.status(200).send({ respuesta: "Ok", mensaje: user });
     } else {
@@ -29,12 +29,12 @@ userRouter.get("/:id", async (req, res) => {
   }
 });
 userRouter.post("/", async (req, res) => {
-  const { nombre, apellido, edad, email, password } = req.body;
+  const { first_name, last_name, age, email, password } = req.body;
   try {
     const respuesta = await userModel.create({
-      nombre,
-      apellido,
-      edad,
+      first_name,
+      last_name,
+      age,
       email,
       password,
     });
@@ -45,15 +45,15 @@ userRouter.post("/", async (req, res) => {
       .send({ respuesta: "Error al crear el usuario", mensaje: error });
   }
 });
-userRouter.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { nombre, apellido, edad, email, password } = req.body;
+userRouter.put("/:uid", async (req, res) => {
+  const { uid } = req.params;
+  const { first_name, last_name, age, email, password } = req.body;
 
   try {
-    const user = await userModel.findByIdAndUpdate(id, {
-      nombre,
-      apellido,
-      edad,
+    const user = await userModel.findByIdAndUpdate(uid, {
+      first_name,
+      last_name,
+      age,
       email,
       password,
     });
@@ -70,11 +70,11 @@ userRouter.put("/:id", async (req, res) => {
   }
 });
 
-userRouter.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+userRouter.delete("/:uid", async (req, res) => {
+  const { uid } = req.params;
 
   try {
-    const user = await userModel.findByIdAndDelete(id);
+    const user = await userModel.findByuidAndDelete(uid);
     if (user) {
       res.status(200).send({ respuesta: "Ok", mensaje: user });
     } else {

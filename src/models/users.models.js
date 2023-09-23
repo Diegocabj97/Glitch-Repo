@@ -2,15 +2,18 @@ import { Schema, model } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
 const userSchema = new Schema({
-  nombre: {
+  first_name: {
     type: String,
     required: true,
   },
-  apellido: {
+  last_name: {
     type: String,
     required: true,
   },
-  edad: Number,
+  age: {
+    required: true,
+    type: Number,
+  },
   email: {
     type: String,
     unique: true,
@@ -18,6 +21,10 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    default: "user",
   },
 });
 userSchema.plugin(paginate);

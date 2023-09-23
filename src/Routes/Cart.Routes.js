@@ -36,8 +36,9 @@ cartRouter.get("/:cid", async (req, res) => {
   }
 });
 
-cartRouter.post("/:cid/products/:pid/:quantity", async (req, res) => {
-  const { cid, pid, quantity } = req.params;
+cartRouter.post("/:cid/products/:pid/", async (req, res) => {
+  const { cid, pid } = req.params;
+  const { quantity } = req.body;
 
   if (!quantity || isNaN(quantity) || quantity <= 0) {
     return res.status(400).send("Cantidad inválida");
@@ -49,7 +50,7 @@ cartRouter.post("/:cid/products/:pid/:quantity", async (req, res) => {
       const prod = await productModel.findById(pid);
       if (prod) {
         const indice = cart.products.findIndex(
-          (prod) => prod.id_prod.toString() === pid
+          (prod) => prod.id_prod._id.toString() === pid
         );
         if (indice !== -1) {
           cart.products[indice].quantity = quantity;
@@ -114,7 +115,7 @@ cartRouter.put("/:cid/products/:pid", async (req, res) => {
     const cart = await CartModel.findById(cid);
     if (cart) {
       const productIndex = cart.products.findIndex(
-        (prod) => prod.id_prod.toString() === pid
+        (prod) => prod.id_prod._id.toString() === pid
       );
 
       if (productIndex !== -1) {
@@ -179,7 +180,7 @@ cartRouter.delete("/:cid/products/:pid", async (req, res) => {
     const cart = await CartModel.findById(cid);
     if (cart) {
       const indice = cart.products.findIndex(
-        (prod) => prod.id_prod.toString() === pid
+        (prod) => prod.id_prod._id.toString() === pid
       );
 
       if (indice !== 1) {

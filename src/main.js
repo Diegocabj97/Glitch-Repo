@@ -11,12 +11,15 @@ import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
 import { MsgModel } from "./models/messages.models.js";
-import { userModel } from "./models/users.models.js";
-import { CartModel } from "./models/cart.models.js";
-import { productModel } from "./models/products.models.js";
+import cookieParser from "cookie-parser";
+import session from "express-session";
 import "dotenv/config";
+import MongoStore from "connect-mongo";
+import SessionRouter from "./Routes/session.routes.js";
 const app = express();
 const PORT = 8080;
+
+//BDD
 mongoose
   .connect(process.env.MONGO_URL)
   .then(async () => {
@@ -44,6 +47,24 @@ app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", engine()); // defino que motor de plantillas voy a utilizar y su configuracion
 app.set("view engine", "handlebars"); // Settign de mi app de handlebars
 app.set("views", path.resolve(__dirname, "./Views")); //Resolver rutas absolutas a traves de rutas relativas
+app.use(cookieParser(process.env.SIGNED_COOKIE)); //Cookie firmada
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+      mongoOptions: {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+      ttl: 1,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: false, //Fuerzo a que se intente guardar a pesar de no tener modificaciones en datos
+    saveUninitialized: false, //Fuerzo a guardar la session a pesar de no tener ningun dato
+  })
+);
+
+////////////////////////////////////////////////
 
 //Server socket io
 const io = new Server(serverExpress);
@@ -61,9 +82,9 @@ io.on("connection", (socket) => {
   socket.on("mensaje", async (infoMensaje) => {
     try {
       infoMensaje.postTime = new Date();
-      const newMessage = await MsgModel.create(infoMensaje);
+      await MsgModel.create(infoMensaje);
       const allMsgs = await MsgModel.find();
-      io.emit("mensajes", [newMessage, ...allMsgs]);
+      io.emit("mensajes", [...allMsgs]);
     } catch (error) {
       console.error(error);
     }
@@ -91,17 +112,29 @@ io.on("connection", (socket) => {
   });
 });
 
-//Pagina home con productos
-
 //Routes
 app.use("/api/products", ProdsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/messages", msgRouter);
 app.use("/api/users", userRouter);
+app.use("/api/sessions", SessionRouter);
 app.use("/static", express.static(path.join(__dirname, "/public")));
 app.use("/chat", express.static(path.join(__dirname, "/public")));
 app.use("/home", express.static(path.join(__dirname, "/public")));
 app.use("/realtimeproducts", express.static(path.join(__dirname, "/public")));
+
+app.get("/setCookie", (req, res) => {
+  res
+    .cookie("cookiecookie", "Esto es una cookie firmada", {
+      maxAge: 60000,
+      signed: true,
+    })
+    .send("cookie generada");
+});
+
+app.get("/getCookie", (req, res) => {
+  res.send(req.signedCookies);
+});
 
 app.get("/Chat", (req, res) => {
   res.render("chat", {

@@ -7,30 +7,18 @@ prodsRouter.get("/", async (req, res) => {
   const { sort, limit = 10, page = 1, category } = req.query;
 
   try {
-    let query = {};
-    if (category) {
-      query.category = category;
-    }
-    let resultado;
-    const filtros = {
-      page: parseInt(page),
-      limit: parseInt(limit),
-    };
+    const query = category ? { category } : {};
 
-    if (sort === "asc") {
-      resultado = await productModel.paginate(query, {
-        sort: { price: "asc" },
-        ...filtros,
-      });
-    } else if (sort === "desc") {
-      resultado = await productModel.paginate(query, {
-        sort: { price: "desc" },
-        ...filtros,
-      });
-    } else {
-      resultado = await productModel.paginate(query, filtros);
-    }
-
+    const filtros = { page: parseInt(page), limit: parseInt(limit) };
+    const resultado = await productModel.paginate(query, {
+      sort:
+        sort === "asc"
+          ? { price: "asc" }
+          : sort === "desc"
+          ? { price: "desc" }
+          : undefined,
+      ...filtros,
+    });
     res.status(200).send({ respuesta: "Ok", mensaje: resultado });
   } catch (error) {
     res
