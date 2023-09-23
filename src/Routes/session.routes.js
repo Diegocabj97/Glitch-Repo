@@ -28,16 +28,15 @@ SessionRouter.post("/login", async (req, res) => {
     res.status(404).send({ error: `Error en login: ${error}` });
   }
 });
-
 SessionRouter.post("/logout", async (req, res) => {
   try {
     if (req.session.login) {
-      req.session.destroy();
-      res.status(200).send({ resultado: "Sesion cerrada" });
+      req.session.destroy(() => {
+        res.redirect("/login");
+      });
     } else {
       res.status(200).send({ resultado: "no hay una sesion activa" });
     }
-    res.redirect("/login");
   } catch (error) {
     res.status(500).send({ resultado: "Error al cerrar sesión", error: error });
   }
