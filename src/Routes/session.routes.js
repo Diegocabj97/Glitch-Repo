@@ -30,10 +30,17 @@ SessionRouter.post("/login", async (req, res) => {
 });
 
 SessionRouter.post("/logout", async (req, res) => {
-  if (req.session.login) {
-    req.session.destroy();
+  try {
+    if (req.session.login) {
+      req.session.destroy();
+      res.status(200).send({ resultado: "Sesion cerrada" });
+    } else {
+      res.status(200).send({ resultado: "no hay una sesion activa" });
+    }
+    res.redirect("/login");
+  } catch (error) {
+    res.status(500).send({ resultado: "Error al cerrar sesión", error: error });
   }
-  res.status(200).send({ resultado: "Sesion cerrada" });
 });
 
 export default SessionRouter;
