@@ -56,7 +56,7 @@ app.use(
         useNewUrlParser: true,
         useUnifiedTopology: true,
       },
-      ttl: 1,
+      ttl: 10000000,
     }),
     secret: process.env.SESSION_SECRET,
     resave: false, //Fuerzo a que se intente guardar a pesar de no tener modificaciones en datos
@@ -122,6 +122,8 @@ app.use("/static", express.static(path.join(__dirname, "/public")));
 app.use("/chat", express.static(path.join(__dirname, "/public")));
 app.use("/home", express.static(path.join(__dirname, "/public")));
 app.use("/realtimeproducts", express.static(path.join(__dirname, "/public")));
+app.use("/login", express.static(path.join(__dirname, "/public")));
+app.use("/api/sessions/logout", express.static(path.join(__dirname, "/public")));
 
 app.get("/setCookie", (req, res) => {
   res
@@ -143,6 +145,20 @@ app.get("/Chat", (req, res) => {
     js: "chat.js",
   });
 });
+app.get("/login", (req, res) => {
+  res.render("login", {
+    css: "login.css",
+    title: "Login",
+    js: "login.js",
+  });
+});
+app.get("/logout", (req, res) => {
+  res.render("logout", {
+    css: "login.css",
+    title: "Login",
+    js: "logout.js",
+  });
+});
 app.get("/home", (req, res) => {
   res.render("home", {
     title: "Home",
@@ -157,4 +173,13 @@ app.get("/realtimeproducts", (req, res) => {
     js: "realTimeProducts.js",
     css: "realTimeProducts.css",
   });
+  
+});
+app.get("/newUser", (req, res) => {
+  res.render("newUser", {
+    title: "newUser",
+    js: "newUser.js",
+    css: "newUser.css",
+  });
+  
 });
