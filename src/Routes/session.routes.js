@@ -10,12 +10,10 @@ SessionRouter.post(
   (req, res, next) => {
     if (req.isAuthenticated()) {
       // Si ya está autenticado, responde con un mensaje adecuado.
-      return res
-        .status(401)
-        .json({
-          mensaje:
-            "Ya estás autenticado. cierra sesión para volver a iniciar sesión.",
-        });
+      return res.status(401).json({
+        mensaje:
+          "Ya estás autenticado. cierra sesión para volver a iniciar sesión.",
+      });
     }
     next();
   },
@@ -83,6 +81,7 @@ SessionRouter.get(
   passport.authenticate("github", { scope: ["user:email"] }),
   async (req, res) => {
     res.status(200).send({ mensaje: "Usuario registrado mediante Github" });
+    res.redirect("/login")
   }
 );
 
@@ -92,7 +91,8 @@ SessionRouter.get(
   async (req, res) => {
     req.session.user = req.user;
 
-    res.status(200).send({ mensaje: "Usuario logeado" });
+    res.status(200).send({ mensaje: "Usuario logeado con Github" });
+    res.redirect("/logout")
   }
 );
 

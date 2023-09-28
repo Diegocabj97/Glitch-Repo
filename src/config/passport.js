@@ -33,7 +33,7 @@ const initializePassport = () => {
             password: passwordHash,
           });
           //Usuario creado ---> envio UserCreated
-          console.log("Usuario creado")
+          console.log("Usuario creado");
           return done(null, userCreated);
         } catch (error) {
           return done();
@@ -100,7 +100,7 @@ passport.use(
         console.log(profile._json);
 
         const user = await userModel.findOne({ email: profile._json.email });
-        if (user) {
+        if ((user)) {
           done(null, false);
         } else {
           const userCreated = await userModel.create({
@@ -108,7 +108,7 @@ passport.use(
             last_name: " ",
             email: profile._json.email,
             age: 18, //Default Age
-            password: createHash(profile._json.email + profile._json.name),
+            password: createHash(profile._json.email),
           });
           done(null, userCreated);
         }
