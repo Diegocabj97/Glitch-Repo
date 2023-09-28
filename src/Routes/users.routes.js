@@ -28,23 +28,7 @@ userRouter.get("/:uid", async (req, res) => {
       .send({ respuesta: "Error al consultar este usuario", mensaje: error });
   }
 });
-userRouter.post("/", async (req, res) => {
-  const { first_name, last_name, age, email, password } = req.body;
-  try {
-    const respuesta = await userModel.create({
-      first_name,
-      last_name,
-      age,
-      email,
-      password,
-    });
-    res.status(200).send({ respuesta: "Ok", mensaje: respuesta });
-  } catch (error) {
-    res
-      .status(404)
-      .send({ respuesta: "Error al crear el usuario", mensaje: error });
-  }
-});
+
 userRouter.put("/:uid", async (req, res) => {
   const { uid } = req.params;
   const { first_name, last_name, age, email, password } = req.body;

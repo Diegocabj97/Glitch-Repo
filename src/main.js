@@ -3,6 +3,7 @@ import ProdsRouter from "./Routes/Products.Routes.js";
 import cartRouter from "./Routes/Cart.Routes.js";
 import userRouter from "./Routes/users.routes.js";
 import msgRouter from "./Routes/messages.routes.js";
+import SessionRouter from "./Routes/session.routes.js";
 //Express y socket
 import express from "express";
 import path from "path";
@@ -15,7 +16,8 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import "dotenv/config";
 import MongoStore from "connect-mongo";
-import SessionRouter from "./Routes/session.routes.js";
+import passport from "passport";
+import initializePassport from "./config/passport.js";
 const app = express();
 const PORT = 8080;
 
@@ -41,13 +43,13 @@ const serverExpress = app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
-//Middlewares
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.engine("handlebars", engine()); // defino que motor de plantillas voy a utilizar y su configuracion
-app.set("view engine", "handlebars"); // Settign de mi app de handlebars
-app.set("views", path.resolve(__dirname, "./Views")); //Resolver rutas absolutas a traves de rutas relativas
-app.use(cookieParser(process.env.SIGNED_COOKIE)); //Cookie firmada
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", path.resolve(__dirname, "./Views"));
+
 app.use(
   session({
     store: MongoStore.create({
@@ -59,10 +61,14 @@ app.use(
       ttl: 10000000,
     }),
     secret: process.env.SESSION_SECRET,
-    resave: false, //Fuerzo a que se intente guardar a pesar de no tener modificaciones en datos
-    saveUninitialized: false, //Fuerzo a guardar la session a pesar de no tener ningun dato
+    resave: false,
+    saveUninitialized: false,
   })
 );
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 ////////////////////////////////////////////////
 
@@ -123,7 +129,12 @@ app.use("/chat", express.static(path.join(__dirname, "/public")));
 app.use("/home", express.static(path.join(__dirname, "/public")));
 app.use("/realtimeproducts", express.static(path.join(__dirname, "/public")));
 app.use("/login", express.static(path.join(__dirname, "/public")));
-app.use("/api/sessions/logout", express.static(path.join(__dirname, "/public")));
+
+app.use("/register", express.static(path.join(__dirname, "/public")));
+app.use(
+  "/api/sessions/logout",
+  express.static(path.join(__dirname, "/public"))
+);
 
 app.get("/setCookie", (req, res) => {
   res
@@ -173,7 +184,6 @@ app.get("/realtimeproducts", (req, res) => {
     js: "realTimeProducts.js",
     css: "realTimeProducts.css",
   });
-  
 });
 app.get("/newUser", (req, res) => {
   res.render("newUser", {
@@ -181,5 +191,4 @@ app.get("/newUser", (req, res) => {
     js: "newUser.js",
     css: "newUser.css",
   });
-  
 });
