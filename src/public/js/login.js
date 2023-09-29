@@ -1,3 +1,4 @@
 const socket = io();
-const botonprods = document.getElementById("showProds");
-const listaProds = document.getElementById("listaProds");
+document.getElementById("githubButton").addEventListener("click", function () {
+  window.location.href = "/api/sessions/github";
+});
