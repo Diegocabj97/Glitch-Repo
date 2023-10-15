@@ -1,9 +1,5 @@
 //Routers
-import ProdsRouter from "./Routes/Products.Routes.js";
-import cartRouter from "./Routes/Cart.Routes.js";
-import userRouter from "./Routes/users.routes.js";
-import msgRouter from "./Routes/messages.routes.js";
-import SessionRouter from "./Routes/session.routes.js";
+import router from "./Routes/index.routes.js";
 //Express y socket
 import express from "express";
 import path from "path";
@@ -18,6 +14,7 @@ import "dotenv/config";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import initializePassport from "./config/passport.js";
+import { productModel } from "./models/products.models.js";
 const app = express();
 const PORT = 8080;
 
@@ -49,6 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", path.resolve(__dirname, "./Views"));
+app.use(cookieParser());
 
 app.use(
   session({
@@ -114,22 +112,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on("allProds", async () => {
+    const productos = productModel.find[1];
     socket.emit("allProds", productos);
   });
 });
 
 //Routes
-app.use("/api/products", ProdsRouter);
-app.use("/api/cart", cartRouter);
-app.use("/api/messages", msgRouter);
-app.use("/api/users", userRouter);
-app.use("/api/sessions", SessionRouter);
+app.use("/", router);
 app.use("/static", express.static(path.join(__dirname, "/public")));
 app.use("/chat", express.static(path.join(__dirname, "/public")));
 app.use("/home", express.static(path.join(__dirname, "/public")));
 app.use("/realtimeproducts", express.static(path.join(__dirname, "/public")));
 app.use("/login", express.static(path.join(__dirname, "/public")));
-
 app.use("/register", express.static(path.join(__dirname, "/public")));
 app.use(
   "/api/sessions/logout",

@@ -1,12 +1,42 @@
 import local from "passport-local";
 import passport from "passport";
+import jwt from "passport-jwt";
 import { createHash, validatePassword } from "../utils/bcrypt.js";
 import githubStrategy from "passport-github2";
 import { userModel } from "../models/users.models.js";
 
 // Defino la estrategia a utilizar
 const LocalStrategy = local.Strategy;
+const JWTStrategy = jwt.Strategy;
+const ExtractJWT = jwt.ExtractJwt; //Extrar de las cookies el token
+
 const initializePassport = () => {
+  const cookieExtractor = (req) => {
+    const token = req.cookies.jwtCookie ? req.cookies.jwtCookie : {};
+
+    console.log("cookieExtractor", token);
+
+    return token;
+  };
+
+  passport.use(
+    "jwt",
+    new JWTStrategy(
+      {
+        jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]), //El token va a venir desde cookieExtractor
+        secretOrKey: process.env.JWT_SECRET,
+      },
+      async (jwt_payload, done) => {
+        //jwt_payload = info del token
+        try {
+          console.log("JWT", jwt_payload);
+          return done(null, jwt_payload);
+        } catch (error) {
+          return done(error);
+        }
+      }
+    )
+  );
   passport.use(
     "register",
     new LocalStrategy(
@@ -52,15 +82,19 @@ const initializePassport = () => {
         try {
           const user = await userModel.findOne({ email: username });
           if (!user) {
+            console.log("Usuario no existente");
             return done(null, false); //Si el usuario no existe
           } else {
             //Si existe valido la password
             if (validatePassword(password, user.password)) {
               //Valido la password que me envia el cliente
               return done(null, user);
+            } else {
+              //Credenciales no validas
+              console.log("Contraseña incorrecta");
+              return done(null, false);
             }
-            //Credenciales no validas
-            return done(null, false);
+            
           }
         } catch (error) {
           return done(error);
@@ -100,7 +134,7 @@ passport.use(
         console.log(profile._json);
 
         const user = await userModel.findOne({ email: profile._json.email });
-        if ((user)) {
+        if (user) {
           done(null, false);
         } else {
           const userCreated = await userModel.create({

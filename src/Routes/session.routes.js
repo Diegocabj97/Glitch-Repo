@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { userModel } from "../models/users.models.js";
 import passport from "passport";
-
+import jwt from "passport-jwt";
+import { authorization, passportError } from "../utils/messagesError.js";
+import { generateToken } from "../utils/jwt.js";
 const SessionRouter = Router();
 
 //Metodo de login
@@ -20,11 +22,10 @@ SessionRouter.post(
   passport.authenticate("login"),
   async (req, res) => {
     try {
-      if (req.user) {
+      if (!req.user) {
         // Si req.user existe, significa que el usuario ha iniciado sesión.
         res.status(200).send({
-          mensaje: "Has iniciado sesión",
-          user: req.user,
+          mensaje: "Usuario Invalido",
         });
       } else {
         // Si req.user no existe, significa que la autenticación fue exitosa y puedes enviar una respuesta 200 OK.
@@ -34,7 +35,14 @@ SessionRouter.post(
           email: req.user.email,
           age: req.user.age,
         };
-        res.status(200).send({ payload: req.user });
+        const token = generateToken(req.user);
+        res.cookie("jwtCookie", token, {
+          maxAge: 43200000, // 12hs en ms
+        });
+        res
+          .status(200)
+          .send({ mensaje: "Has iniciado sesión", payload: req.user });
+        console.log(token);
       }
     } catch (error) {
       res.status(500).send({ mensaje: `Error al iniciar sesión ${error}` });
@@ -60,10 +68,11 @@ SessionRouter.post(
   }
 );
 
-SessionRouter.post("/logout", async (req, res) => {
+SessionRouter.get("/logout", async (req, res) => {
   try {
     if (!req.session.login) {
       req.session.destroy(() => {
+        res.clearCookie("jwtCookie");
         res.redirect("/login");
       });
     } else {
@@ -74,6 +83,23 @@ SessionRouter.post("/logout", async (req, res) => {
   }
 });
 
+SessionRouter.get(
+  "/testJWT",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req);
+    res.send(req.user);
+  }
+);
+SessionRouter.get(
+  "/current",
+  passportError("jwt"),
+  authorization("admin"),
+  (req, res) => {
+    res.send(req.user);
+  }
+);
+
 // GITHUB LOGIN
 
 SessionRouter.get(
@@ -81,7 +107,7 @@ SessionRouter.get(
   passport.authenticate("github", { scope: ["user:email"] }),
   async (req, res) => {
     res.status(200).send({ mensaje: "Usuario registrado mediante Github" });
-    res.redirect("/login")
+    res.redirect("/login");
   }
 );
 
@@ -92,7 +118,7 @@ SessionRouter.get(
     req.session.user = req.user;
 
     res.status(200).send({ mensaje: "Usuario logeado con Github" });
-    res.redirect("/logout")
+    res.redirect("/logout");
   }
 );
 

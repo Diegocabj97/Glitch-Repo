@@ -9,19 +9,6 @@ cartRouter.get("/", async (req, res) => {
   res.status(200).send(carts);
 });
 
-cartRouter.post("/", async (req, res) => {
-  try {
-    const { id } = req.body; // Obtener el id del cuerpo de la solicitud
-    const cart = await CartModel.create({ id }); // Crear un nuevo carrito con el id proporcionado
-    res.status(200).send({ respuesta: "Ok", mensaje: cart });
-  } catch (error) {
-    res.status(400).send({
-      respuesta: "Error al crear carrito",
-      mensaje: error,
-    });
-  }
-});
-
 cartRouter.get("/:cid", async (req, res) => {
   const { cid } = req.params;
   try {
