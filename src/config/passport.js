@@ -1,6 +1,7 @@
 import local from "passport-local";
 import passport from "passport";
 import jwt from "passport-jwt";
+import "dotenv/config";
 import { createHash, validatePassword } from "../utils/bcrypt.js";
 import githubStrategy from "passport-github2";
 import { userModel } from "../models/users.models.js";
@@ -12,7 +13,8 @@ const ExtractJWT = jwt.ExtractJwt; //Extrar de las cookies el token
 
 const initializePassport = () => {
   const cookieExtractor = (req) => {
-    const token = req.cookies.jwtCookie ? req.cookies.jwtCookie : {};
+    console.log(req.headers.authorization)
+    const token = req.headers.authorization ? req.headers.authorization : {};
 
     console.log("cookieExtractor", token);
 
@@ -94,7 +96,6 @@ const initializePassport = () => {
               console.log("Contraseña incorrecta");
               return done(null, false);
             }
-            
           }
         } catch (error) {
           return done(error);

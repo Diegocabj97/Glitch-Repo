@@ -1,23 +1,82 @@
-//Routers
+//Routers y DOTENV
 import router from "./Routes/index.routes.js";
-//Express y socket
+import "dotenv/config";
+//////////////////////
+//EXPREESS SOCKET y CORS
 import express from "express";
+import { Server } from "socket.io";
+import { engine } from "express-handlebars";
+import session from "express-session";
+import cors from "cors";
+//////////////////////
+//PATH
 import path from "path";
 import { __dirname } from "./path.js";
-import { engine } from "express-handlebars";
-import { Server } from "socket.io";
+//MONGO Y COOKIE PARSER
 import mongoose from "mongoose";
-import { MsgModel } from "./models/messages.models.js";
-import cookieParser from "cookie-parser";
-import session from "express-session";
-import "dotenv/config";
 import MongoStore from "connect-mongo";
+import cookieParser from "cookie-parser";
+//////////////////////
+//PASSPORT Y MODELS
 import passport from "passport";
 import initializePassport from "./config/passport.js";
 import { productModel } from "./models/products.models.js";
+import { MsgModel } from "./models/messages.models.js";
+//////////////////////
+//MAILING
+import nodemailer from "nodemailer";
+//////////////////////
+
+// CORS OPTIONS
+const whiteList = ["http://localhost:5173/"];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whiteList.indexOf(origin) != 1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Acceso denegado"));
+    }
+  },
+  credentials: true,
+};
+///////////////////////
 const app = express();
 const PORT = 8080;
 
+//MAILING
+
+let transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "diegojadrian97@gmail.com",
+    pass: process.env.PASSWORD_EMAIL,
+    authMethod: "LOGIN",
+  },
+});
+app.get("/mail", async (req, res) => {
+  const resultado = await transporter.sendMail({
+    from: "diegojadrian97@gmail.com",
+    to: "diegocabj97@hotmail.com",
+    subject: "Prueba de mail",
+    html: `
+    <div>
+      <h1>
+      Holi toy probando mandar a traves de mi app
+      </h1>
+    </div>`,
+    attachments: [
+      {
+        filename: "TestImg",
+        path: __dirname + "/img/testimg.jpg",
+        cid: "test.jpg",
+      }],
+  });
+  console.log(resultado);
+  res.send("Email enviado");
+});
+//////////////////////
 //BDD
 mongoose
   .connect(process.env.MONGO_URL)
@@ -42,6 +101,7 @@ const serverExpress = app.listen(PORT, () => {
 
 // Middlewares
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");

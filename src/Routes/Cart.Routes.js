@@ -1,13 +1,11 @@
 import { Router } from "express";
 import { CartModel } from "../models/cart.models.js";
 import { productModel } from "../models/products.models.js";
+import { getCart } from "../controllers/cart.controllers.js";
 
 const cartRouter = Router();
 
-cartRouter.get("/", async (req, res) => {
-  const carts = await CartModel.find();
-  res.status(200).send(carts);
-});
+cartRouter.get("/", getCart);
 
 cartRouter.get("/:cid", async (req, res) => {
   const { cid } = req.params;

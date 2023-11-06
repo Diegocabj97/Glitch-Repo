@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import "dotenv/config"
 export const generateToken = (user) => {
   /*
         1° parametro: Objeto asociado al token (Usuario)
@@ -10,7 +10,6 @@ export const generateToken = (user) => {
   const token = jwt.sign({ user }, process.env.JWT_SECRET, {
     expiresIn: "12h",
   });
- 
 
   return token;
 };
